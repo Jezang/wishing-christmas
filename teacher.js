@@ -1,5 +1,5 @@
-import {cover,coverUrl} from './music-covers.js?v=musicfix1';
-import {findSong,songLinks,wishSong,normalizeSongUrl,platformLinks,readPlatformLinks} from './songs.js?v=musicfix1';
+import {cover,coverUrl} from './music-covers.js?v=spotifyfix2';
+import {findSong,songLinks,wishSong,normalizeSongUrl,platformLinks,readPlatformLinks} from './songs.js?v=spotifyfix2';
 import {db,auth,ready} from './firebase.js';
 import {signInWithEmailAndPassword,signOut,onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js';
 import {collection,query,where,orderBy,documentId,limit,startAfter,getDocs,doc,updateDoc,deleteDoc,addDoc,setDoc} from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js';
