@@ -1,4 +1,4 @@
-import {safeSongUrl, songLinks, platformLinks} from './songs.js?v=spotifyfix2';
+import {safeSongUrl, songLinks, platformLinks} from './songs.js?v=teacheredit1';
 export function coverUrl(raw){if(!raw)return '';const u=new URL(raw);if(u.protocol!=='https:'||u.username||u.password||u.port||raw.length>1000)throw Error('ใช้ URL รูป HTTPS ไม่เกิน 1000 ตัวอักษร');return u.href;}
 const cache=new Map();
 function spotifyCover(url){if(!cache.has(url))cache.set(url,fetch('https://open.spotify.com/oembed?url='+encodeURIComponent(url),{credentials:'omit',referrerPolicy:'no-referrer'}).then(r=>{if(!r.ok)throw Error();return r.json()}).then(x=>coverUrl(x.thumbnail_url)).catch(()=>''));return cache.get(url)}
