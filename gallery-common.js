@@ -1,0 +1,2 @@
+import {drawSnowman} from './snowman-art.js';
+export function tile(w){const a=document.createElement('article');a.className='snow-tile';const c=document.createElement('canvas');c.width=c.height=340;c.setAttribute('aria-label',w.name);drawSnowman(c.getContext('2d'),0,0,340,true,w);a.append(c);for(const t of [w.name,`${w.creator} · ${w.classroom}`,w.intro]){const p=document.createElement('p');p.textContent=t;a.append(p)}return a}
