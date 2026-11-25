@@ -48,6 +48,21 @@ service cloud.firestore {
    allow update: if teacher() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status']) && request.resource.data.status in ['pending','approved','rejected'];
    allow delete: if teacher();
   }
+  match /playlistShares/{id} {
+   allow get: if teacher() || resource.data.status == 'approved';
+   allow list: if (teacher() || resource.data.status == 'approved') && request.query.limit <= 20;
+   allow create: if request.auth != null && request.auth.token.firebase.sign_in_provider == 'anonymous'
+    && request.resource.data.keys().hasAll(['title','name','message','url','uid','status','createdAt'])
+    && request.resource.data.keys().hasOnly(['title','name','message','url','uid','status','createdAt'])
+    && request.resource.data.uid == request.auth.uid && request.resource.data.status == 'pending' && request.resource.data.createdAt == request.time
+    && request.resource.data.title is string && request.resource.data.title.size() >= 1 && request.resource.data.title.size() <= 80
+    && request.resource.data.name is string && request.resource.data.name.size() >= 1 && request.resource.data.name.size() <= 30
+    && request.resource.data.message is string && request.resource.data.message.size() <= 160
+    && request.resource.data.url is string && request.resource.data.url.size() <= 250
+    && request.resource.data.url.matches('https://(open[.]spotify[.]com/playlist/[A-Za-z0-9]{22}|www[.]youtube[.]com/playlist[?]list=[A-Za-z0-9_-]{10,150})');
+   allow update: if teacher() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status']) && request.resource.data.status in ['pending','approved','rejected'];
+   allow delete: if teacher();
+  }
   match /wishes/{id} {
    allow get: if teacher() || resource.data.status == 'approved';
    allow list: if (teacher() || resource.data.status == 'approved') && request.query.limit <= 30;
