@@ -1,0 +1,69 @@
+rules_version = '2';
+service cloud.firestore {
+ match /databases/{database}/documents {
+  function teacher() { return request.auth != null && request.auth.uid == 'V4xlfqFmlgNGAISKJE28xx66u883'; }
+  function song(s) {
+   return s is map && s.keys().hasAll(['title','artist'])
+    && s.title is string && s.title.size() >= 1 && s.title.size() <= 100
+    && s.artist is string && s.artist.size() >= 1 && s.artist.size() <= 100
+    && (!('url' in s) || (s.url is string && s.url.matches('https://(open[.]spotify[.]com/track/[A-Za-z0-9]{22}|www[.]youtube[.]com/watch[?]v=[A-Za-z0-9_-]{11}|youtu[.]be/[A-Za-z0-9_-]{11})')))
+    && (!('youtubeUrl' in s) || (s.youtubeUrl is string && s.youtubeUrl.matches('https://(www[.]youtube[.]com/watch[?]v=[A-Za-z0-9_-]{11}|youtu[.]be/[A-Za-z0-9_-]{11})')))
+    && (!('spotifyUrl' in s) || (s.spotifyUrl is string && s.spotifyUrl.matches('https://open[.]spotify[.]com/track/[A-Za-z0-9]{22}')))
+    && ('url' in s || 'youtubeUrl' in s || 'spotifyUrl' in s);
+  }
+  match /playlist/{id} {
+   allow get: if true;
+   allow list: if request.query.limit <= 30;
+   allow create, update: if teacher() && song(request.resource.data)
+    && request.resource.data.keys().hasOnly(['title','artist','url','youtubeUrl','spotifyUrl','genre','coverUrl'])
+    && (!('coverUrl' in request.resource.data) || (request.resource.data.coverUrl is string && request.resource.data.coverUrl.size() <= 1000 && (request.resource.data.coverUrl == '' || request.resource.data.coverUrl.matches('https://[^ ]+'))))
+    && request.resource.data.genre in ['Pop','Cozy','K-Pop','Classics','Piano'];
+   allow delete: if teacher();
+  }
+  match /songOverrides/{id} {
+   allow get: if true;
+   allow list: if request.query.limit <= 30;
+   allow create, update: if teacher() && id.matches('s([1-9]|[12][0-9]|30)') && song(request.resource.data)
+    && request.resource.data.keys().hasOnly(['title','artist','url','youtubeUrl','spotifyUrl','genre','coverUrl'])
+    && (!('coverUrl' in request.resource.data) || (request.resource.data.coverUrl is string && request.resource.data.coverUrl.size() <= 1000 && (request.resource.data.coverUrl == '' || request.resource.data.coverUrl.matches('https://[^ ]+'))))
+    && request.resource.data.genre in ['Pop','Cozy','K-Pop','Classics','Piano'];
+   allow delete: if teacher();
+  }
+  match /snowmen/{id} {
+   allow get: if teacher() || resource.data.status == 'approved';
+   allow list: if (teacher() || resource.data.status == 'approved') && request.query.limit <= 20;
+   allow create: if request.auth != null && request.auth.token.firebase.sign_in_provider == 'anonymous'
+    && request.resource.data.keys().hasAll(['name','hat','scarf','face','accessory','scene','creator','classroom','intro','uid','status','createdAt'])
+    && request.resource.data.keys().hasOnly(['name','hat','scarf','face','accessory','scene','creator','classroom','intro','uid','status','createdAt'])
+    && request.resource.data.uid == request.auth.uid && request.resource.data.status == 'pending' && request.resource.data.createdAt == request.time
+    && request.resource.data.name is string && request.resource.data.name.size() >= 1 && request.resource.data.name.size() <= 22
+    && request.resource.data.creator is string && request.resource.data.creator.size() >= 1 && request.resource.data.creator.size() <= 30
+    && request.resource.data.classroom is string && request.resource.data.classroom.size() >= 1 && request.resource.data.classroom.size() <= 20
+    && request.resource.data.intro is string && request.resource.data.intro.size() >= 1 && request.resource.data.intro.size() <= 160
+    && request.resource.data.hat in ['santa','top','knit','none']
+    && request.resource.data.scarf in ['#e994ae','#83c5af','#9faedf','#e8c47d','#d67b79','#b6a0d3']
+    && request.resource.data.face in ['happy','sleepy','wink']
+    && request.resource.data.accessory in ['star','gift','candy','none']
+    && request.resource.data.scene in ['day','night'];
+   allow update: if teacher() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status']) && request.resource.data.status in ['pending','approved','rejected'];
+   allow delete: if teacher();
+  }
+  match /wishes/{id} {
+   allow get: if teacher() || resource.data.status == 'approved';
+   allow list: if (teacher() || resource.data.status == 'approved') && request.query.limit <= 30;
+   allow create: if request.auth != null && request.auth.token.firebase.sign_in_provider == 'anonymous'
+    && request.resource.data.keys().hasAll(['name','classroom','message','status','createdAt','uid'])
+    && request.resource.data.keys().hasOnly(['name','classroom','message','status','createdAt','uid','recipient','songId','customSong'])
+    && (!('customSong' in request.resource.data) || ( !('songId' in request.resource.data) && song(request.resource.data.customSong) && request.resource.data.customSong.keys().hasOnly(['title','artist','url','youtubeUrl','spotifyUrl'])))
+    && (!('recipient' in request.resource.data) || (request.resource.data.recipient is string && request.resource.data.recipient.size() >= 1 && request.resource.data.recipient.size() <= 45))
+    && (!('songId' in request.resource.data) || request.resource.data.songId in ['s1','s2','s3','s4','s5','s6','s7','s8','s9','s10','s11','s12','s13','s14','s15','s16','s17','s18','s19','s20','s21','s22','s23','s24','s25','s26','s27','s28','s29','s30'])
+    && request.resource.data.uid == request.auth.uid && request.resource.data.status == 'pending'
+    && request.resource.data.createdAt == request.time
+    && request.resource.data.name is string && request.resource.data.name.size() >= 1 && request.resource.data.name.size() <= 30
+    && request.resource.data.classroom is string && request.resource.data.classroom.size() >= 1 && request.resource.data.classroom.size() <= 20
+    && request.resource.data.message is string && request.resource.data.message.size() >= 8 && request.resource.data.message.size() <= 180;
+   allow update: if teacher() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status']) && request.resource.data.status in ['pending','approved','rejected'];
+   allow delete: if teacher();
+  }
+ }
+}
