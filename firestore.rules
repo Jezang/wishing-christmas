@@ -40,11 +40,11 @@ service cloud.firestore {
     && request.resource.data.creator is string && request.resource.data.creator.size() >= 1 && request.resource.data.creator.size() <= 30
     && request.resource.data.classroom is string && request.resource.data.classroom.size() >= 1 && request.resource.data.classroom.size() <= 20
     && request.resource.data.intro is string && request.resource.data.intro.size() >= 1 && request.resource.data.intro.size() <= 160
-    && request.resource.data.hat in ['santa','top','knit','none']
-    && request.resource.data.scarf in ['#e994ae','#83c5af','#9faedf','#e8c47d','#d67b79','#b6a0d3']
-    && request.resource.data.face in ['happy','sleepy','wink']
-    && request.resource.data.accessory in ['star','gift','candy','none']
-    && request.resource.data.scene in ['day','night'];
+    && request.resource.data.hat in ['santa','top','knit','none','crown','antlers','earmuffs','elf']
+    && request.resource.data.scarf in ['#e994ae','#83c5af','#9faedf','#e8c47d','#d67b79','#b6a0d3','#e34e68','#248f77','#f29b54','#62b7df','#f4d35e','#e87dbb']
+    && request.resource.data.face in ['happy','sleepy','wink','excited','glasses']
+    && request.resource.data.accessory in ['star','gift','candy','none','bell','cookie','lantern','heart','tree','cocoa','wreath','music']
+    && request.resource.data.scene in ['day','night','sunset','forest','festival','aurora'];
    allow update: if teacher() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status']) && request.resource.data.status in ['pending','approved','rejected'];
    allow delete: if teacher();
   }

@@ -1,6 +1,6 @@
 import {db,auth,ready} from './firebase.js';
-import {snowmanState} from './snowman.js';
-import {tile} from './gallery-common.js';
+import {snowmanState} from './snowman.js?v=5';
+import {tile} from './gallery-common.js?v=5';
 import {collection,query,where,orderBy,documentId,limit,startAfter,getDocs,addDoc,serverTimestamp} from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js';
 import {signInAnonymously} from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js';
 const $=id=>document.getElementById(id);let rows=[],cursor=null,busy=false,more=true,last=0;
