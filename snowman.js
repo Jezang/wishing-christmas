@@ -3,7 +3,7 @@ const defaults={name:'',hat:'santa',scarf:'#e994ae',face:'happy',accessory:'star
 const fields={name:'snowName',hat:'snowHat',scarf:'snowScarf',face:'snowFace',accessory:'snowAccessory',scene:'snowScene'};
 let state={...defaults};
 try{const saved=JSON.parse(localStorage.getItem('villageSnowmanV1')||'{}');for(const [k,id] of Object.entries(fields)){const el=$(id);if(k==='name'&&typeof saved[k]==='string')state[k]=saved[k].slice(0,22);else if(el.tagName==='SELECT'&&[...el.options].some(o=>o.value===saved[k]))state[k]=saved[k];}}catch{}
-import {drawSnowman as drawArt} from './snowman-art.js?v=5';
+import {drawSnowman as drawArt} from './snowman-art.js?v=51';
 export function drawSnowman(c,x,y,size,background=false){drawArt(c,x,y,size,background,state)}
 export function snowmanState(){return {...state}}
 export function snowmanName(){return state.name;}
