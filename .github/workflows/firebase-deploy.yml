@@ -1,0 +1,40 @@
+name: Deploy Firestore configuration
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - firestore.rules
+      - firestore.indexes.json
+      - firebase.json
+      - .github/workflows/firebase-deploy.yml
+permissions:
+  contents: read
+  id-token: write
+concurrency:
+  group: christmas-village-firestore
+  cancel-in-progress: false
+jobs:
+  deploy:
+    if: ${{ github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || vars.FIREBASE_AUTO_DEPLOY == 'true') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Check connection settings
+        env:
+          PROVIDER: ${{ vars.FIREBASE_WIF_PROVIDER }}
+          DEPLOY_SA: ${{ vars.FIREBASE_DEPLOY_SA }}
+        run: |
+          test -n "$PROVIDER" && test -n "$DEPLOY_SA" || { echo 'Configure FIREBASE_WIF_PROVIDER and FIREBASE_DEPLOY_SA repository variables first.'; exit 1; }
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v3
+        with:
+          project_id: christmas-wishing-village
+          workload_identity_provider: ${{ vars.FIREBASE_WIF_PROVIDER }}
+          service_account: ${{ vars.FIREBASE_DEPLOY_SA }}
+      - name: Deploy rules and indexes without forced deletions
+        run: npx --yes firebase-tools@15.37.0 deploy --project christmas-wishing-village --only firestore:rules,firestore:indexes --non-interactive
