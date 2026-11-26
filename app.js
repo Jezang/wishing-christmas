@@ -42,7 +42,7 @@ function wishImage(w,format='square'){const f=wishFormats[format]||wishFormats.s
  const toY=header+91;rr(x,170,toY-36,740,52,26,'#e4f2e9');x.fillStyle='#467966';x.font='bold 31px system-ui';x.fillText('To: '+(w.recipient||'Everyone'),540,toY,690);
  const messageTop=toY+36,messageBottom=bottom-(square?170:200),available=messageBottom-messageTop;let size=square?42:52,lines,step;
  do{x.font=size+'px system-ui';lines=wishLines(x,w.message,750);step=size*1.32;if(lines.length*step<=available||size<=12)break;size-=2}while(true);
- x.fillStyle='#614c62';x.textBaseline='middle';const lineStart=messageTop+(available-lines.length*step)/2+step/2;lines.forEach((l,i)=>x.fillText(l,540,lineStart+i*step,750));x.textBaseline='alphabetic';
+ const spare=(available-lines.length*step)/2;if(spare>76){const upper=messageTop+spare*.43,lower=messageBottom-spare*.43;for(const y of [upper,lower]){x.strokeStyle='#e9bfd0';x.lineWidth=2;x.beginPath();x.moveTo(340,y);x.lineTo(472,y);x.moveTo(608,y);x.lineTo(740,y);x.stroke();drawStar(x,495,y,.55);drawHeart(x,540,y-3,.75);drawStar(x,585,y,.55)}}x.fillStyle='#614c62';x.font=size+'px system-ui';x.textBaseline='middle';const lineStart=messageTop+(available-lines.length*step)/2+step/2;lines.forEach((l,i)=>x.fillText(l,540,lineStart+i*step,750));x.textBaseline='alphabetic';
  const fromY=bottom-(square?113:130);rr(x,202,fromY-36,676,51,25,'#fae5ec');x.fillStyle='#92526f';x.font='bold 30px system-ui';x.fillText('From: '+w.name,540,fromY,624);
  // Little sticker cluster around the signature, never across the text.
  drawCandy(x,140,fromY-4,.9);drawGingerbread(x,943,fromY-3,.84);
