@@ -1,0 +1,19 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "board",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "classroom",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "xp",
+          "order": "DESCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}
