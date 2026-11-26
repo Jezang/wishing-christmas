@@ -15,7 +15,7 @@ function wishTextFor(w){const links=wishSong(w)?[...songLinks(wishSong(w)).query
 function keepDownload(data,name){const a=document.createElement('a');a.href=data;a.download=name;a.click()}
 const wishFormats={story:{height:1920,label:'IG Story 9:16'},post:{height:1350,label:'IG Post 4:5'},square:{height:1080,label:'Square 1:1'}};
 function wishLines(ctx,message,maxWidth){const out=[];for(const paragraph of String(message||'').replace(/\r/g,'').split('\n')){let line='';const tokens=paragraph.trim().split(/\s+/);for(const word of tokens){if(!word)continue;const candidate=line?line+' '+word:word;if(ctx.measureText(candidate).width<=maxWidth){line=candidate;continue}if(line){out.push(line);line=''}if(ctx.measureText(word).width<=maxWidth){line=word;continue}const units=typeof Intl.Segmenter==='function'?[...new Intl.Segmenter(undefined,{granularity:'grapheme'}).segment(word)].map(v=>v.segment):Array.from(word);for(const unit of units){if(line&&ctx.measureText(line+unit).width>maxWidth){out.push(line);line=''}line+=unit}}if(line)out.push(line)}return out.length?out:[''];}
-// v6.5: all artwork is drawn locally, without external assets.
+// v6.6: locally drawn layered stationery and Story-safe text.
 function wishHouse(c,x,y,s,wall,roof){c.save();c.translate(x,y);c.scale(s,s);rr(c,-65,-71,130,99,14,wall,'#ae8c91',3);pp(c,[[-80,-64],[0,-135],[80,-64]],roof,'#ae8c91',4);c.strokeStyle='#fffdf8';c.lineWidth=14;c.lineCap='round';c.lineJoin='round';c.beginPath();c.moveTo(-72,-66);c.lineTo(0,-128);c.lineTo(72,-66);c.stroke();rr(c,-17,-16,34,44,12,'#b391a2');for(const px of [-42,42]){rr(c,px-15,-48,30,32,7,'#fff0bd','#ba9395',2);c.strokeStyle='#ba9395';c.lineWidth=2;c.beginPath();c.moveTo(px,-47);c.lineTo(px,-16);c.moveTo(px-14,-32);c.lineTo(px+14,-32);c.stroke()}cc(c,8,8,3,'#fce6ad');rr(c,-73,24,146,10,5,'#fffdf8');c.restore()}
 function wishSparkle(c,x,y,s=1,color='#fff8d5'){pp(c,[[x,y-13*s],[x+4*s,y-4*s],[x+13*s,y],[x+4*s,y+4*s],[x,y+13*s],[x-4*s,y+4*s],[x-13*s,y],[x-4*s,y-4*s]],color)}
 function wishSnowman(c,x,y,s=1){c.save();c.translate(x,y);c.scale(s,s);cc(c,0,9,37,'#fffcf8','#b2c9d2',3);cc(c,0,-39,30,'#fffcf8','#b2c9d2',3);rr(c,-33,-73,66,15,7,'#e9a6bf');rr(c,-24,-99,48,31,12,'#d8a5cd');cc(c,0,-103,10,'#fff2e0');rr(c,-34,-15,68,13,6,'#91bfae');rr(c,18,-9,13,32,5,'#91bfae');cc(c,-10,-43,3,'#594f66');cc(c,10,-43,3,'#594f66');cc(c,-18,-33,5,'#f4c1ca');cc(c,18,-33,5,'#f4c1ca');pp(c,[[0,-38],[15,-31],[0,-28]],'#f3b576');cc(c,0,6,4,'#b99bb9');cc(c,0,22,4,'#b99bb9');c.restore()}
@@ -26,18 +26,24 @@ function wishImage(w,format='square'){const f=wishFormats[format]||wishFormats.s
  // Scalloped snow banks and pastel village behind the central stationery.
  x.fillStyle='#eaf5f2';x.beginPath();x.moveTo(0,H-215);x.quadraticCurveTo(250,H-350,530,H-200);x.quadraticCurveTo(860,H-350,1080,H-220);x.lineTo(1080,H);x.lineTo(0,H);x.closePath();x.fill();
  x.fillStyle='#fffaf6';x.beginPath();x.moveTo(0,H-100);x.quadraticCurveTo(300,H-210,570,H-92);x.quadraticCurveTo(850,H-175,1080,H-95);x.lineTo(1080,H);x.lineTo(0,H);x.closePath();x.fill();
- const top=story?290:square?96:130,bottom=H-(story?290:square?125:150),height=bottom-top;
+ // Decorative art may extend into Story UI areas, but keep all essential text in y=300..1520.
+ const top=story?300:square?96:130,bottom=H-(story?400:square?125:150),height=bottom-top;
  wishGarland(x,story?110:10);
  for(const side of [0,1]){const px=side?1045:35;for(let i=0;i<Math.floor(height/110);i++){const py=top+65+i*110;if(i%3===0)drawSnowflake(x,px,py,.48);else if(i%3===1)drawHeart(x,px,py,.55);else wishSparkle(x,px,py,.75)}}
  // Layered cream paper with a candy-pink stitched border.
- rr(x,55,top+12,970,height,55,'#caa7bf');rr(x,47,top,986,height,55,'#fff9f1','#fffdf9',7);rr(x,68,top+21,944,height-42,39,'#fffaf5','#e5a8c1',4);
+ x.save();x.shadowColor='rgba(107,72,107,.24)';x.shadowBlur=34;x.shadowOffsetY=17;rr(x,47,top,986,height,55,'#fff9f1');x.restore();
+ rr(x,55,top+12,970,height,55,'#d8b4c9');rr(x,47,top,986,height,55,'#fff9f1','#fffdf9',7);
+ const paper=x.createLinearGradient(68,top,1012,bottom);paper.addColorStop(0,'#fffef9');paper.addColorStop(.55,'#fffaf5');paper.addColorStop(1,'#fcecf0');rr(x,68,top+21,944,height-42,39,paper,'#e5a8c1',4);
  x.save();x.setLineDash([9,12]);rr(x,84,top+37,912,height-74,28,null,'#eac6d6',2);x.restore();
  const header=top+(square?133:162);
  // Sticker-style ornaments framing the heading.
- drawRibbon(x,540,top+23,1.55);
- drawTree(x,166,top+115,1.17);drawSanta(x,914,top+118,1.13);
+ // Composite sticker groups before adding a single soft shadow, rather than shadowing every path.
+ const stickers=document.createElement('canvas');stickers.width=1080;stickers.height=H;const k=stickers.getContext('2d');
+ const stamp=()=>{x.save();x.shadowColor='rgba(107,72,100,.18)';x.shadowBlur=12;x.shadowOffsetY=7;x.drawImage(stickers,0,0);x.restore();k.clearRect(0,0,1080,H)};
+ drawRibbon(k,540,top+23,1.55);
+ drawTree(k,166,top+115,1.17);drawSanta(k,914,top+118,1.13);stamp();
  drawGift(x,111,top+164,.65);drawStar(x,224,top+68,.65);drawHeart(x,850,top+62,.62);drawBell(x,969,top+166,.65);
- x.textAlign='center';x.textBaseline='alphabetic';x.fillStyle='#a44f77';x.font='bold '+(square?61:67)+'px system-ui';x.fillText('Merry Christmas!',540,header,650);
+ x.textAlign='center';x.textBaseline='alphabetic';x.fillStyle='#a44f77';x.font='bold '+(square?61:67)+'px system-ui';x.save();x.shadowColor='rgba(164,79,119,.15)';x.shadowBlur=4;x.shadowOffsetY=3;x.fillText('Merry Christmas!',540,header,650);x.restore();
  x.fillStyle='#ac7794';x.font='bold 22px system-ui';x.fillText('✦   A LITTLE CHRISTMAS MAGIC   ✦',540,header+40,660);
  const toY=header+91;rr(x,170,toY-36,740,52,26,'#e4f2e9');x.fillStyle='#467966';x.font='bold 31px system-ui';x.fillText('To: '+(w.recipient||'Everyone'),540,toY,690);
  const messageTop=toY+36,messageBottom=bottom-(square?170:200),available=messageBottom-messageTop;let size=square?42:52,lines,step;
@@ -49,9 +55,11 @@ function wishImage(w,format='square'){const f=wishFormats[format]||wishFormats.s
  x.fillStyle='#92758c';x.font='bold 22px system-ui';x.fillText('CHRISTMAS WISHING VILLAGE',540,bottom-47,740);
  // Foreground village in the lower margin; the story safe area stays clear of UI.
  const ground=H-(story?153:square?40:52),scene=story?1.38:square?.72:.9;
- wishHouse(x,170,ground,scene,'#f6c9db','#d99ab6');wishHouse(x,905,ground,scene*.9,'#cce7e1','#99bfb7');
- drawTree(x,62,ground-5,scene*.9);drawTree(x,1014,ground-10,scene*.9);
- wishSnowman(x,382,ground+3,scene);drawReindeer(x,690,ground-8,scene*.92);drawGift(x,500,ground+14,scene*.65);drawGift(x,564,ground+7,scene*.72);drawStar(x,290,ground-74,scene*.5);drawHeart(x,794,ground-65,scene*.42);
+ // Snow contact shadows and distant houses make the village feel layered.
+ for(const [px,py,rx] of [[170,28,75],[905,28,65],[62,42,44],[1014,37,44],[382,45,39],[690,52,38],[500,44,30],[564,39,33]]){x.save();x.globalAlpha=.14;x.fillStyle='#8d9bb8';x.beginPath();x.ellipse(px,ground+py*scene,rx*scene,8*scene,0,0,Math.PI*2);x.fill();x.restore()}
+ wishHouse(k,170,ground,scene,'#f6c9db','#d99ab6');wishHouse(k,905,ground,scene*.9,'#cce7e1','#99bfb7');stamp();
+ drawTree(k,62,ground-5,scene*.9);drawTree(k,1014,ground-10,scene*.9);
+ wishSnowman(k,382,ground+3,scene);drawReindeer(k,690,ground-8,scene*.92);drawGift(k,500,ground+14,scene*.65);drawGift(k,564,ground+7,scene*.72);drawStar(k,290,ground-74,scene*.5);drawHeart(k,794,ground-65,scene*.42);stamp();
  return c.toDataURL('image/png')}
 let currentWishShare=null,currentWishFormat='story',currentWishImage='';
 function renderWishShare(){if(!currentWishShare)return;try{currentWishImage=wishImage(currentWishShare,currentWishFormat);$('wishSharePreview').src=currentWishImage;$('wishShareDimensions').textContent='1080 × '+wishFormats[currentWishFormat].height+' px';$('wishShareStatus').textContent='';$('wishShareSend').disabled=false;$('wishShareDownload').disabled=false}catch(e){currentWishImage='';$('wishSharePreview').removeAttribute('src');$('wishShareStatus').textContent='สร้างภาพไม่สำเร็จ กรุณาลองใหม่';$('wishShareSend').disabled=true;$('wishShareDownload').disabled=true}for(const b of document.querySelectorAll('[data-wish-format]'))b.setAttribute('aria-pressed',String(b.dataset.wishFormat===currentWishFormat))}
