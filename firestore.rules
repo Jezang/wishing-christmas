@@ -94,6 +94,9 @@ service cloud.firestore {
    let c = get(/databases/$(database)/documents/gameConfig/current).data;
    return c.enabled == true && c.round == r;
   }
+  function gameEnabled(k) {
+   return get(/databases/$(database)/documents/gameConfig/current).data.games[k] == true;
+  }
   function gameStudent(u) {
    return request.auth != null && request.auth.uid == u && request.auth.token.firebase.sign_in_provider == 'anonymous';
   }
@@ -117,14 +120,22 @@ service cloud.firestore {
   match /gameRounds/{round}/scores/{uid} {
    allow get: if teacher() || gameStudent(uid);
    allow list: if teacher() && request.query.limit <= 20;
-   allow create: if gameStudent(uid) && gameSubmission(request.resource.data,round);
+   allow create: if gameStudent(uid) && gameSubmission(request.resource.data,round)
+    && (request.resource.data.quiz == 0 || gameEnabled('quiz'))
+    && (request.resource.data.memory == 0 || gameEnabled('memory'))
+    && (request.resource.data.catch == 0 || gameEnabled('catch'))
+    && (request.resource.data.word == 0 || gameEnabled('word'));
    allow update: if (teacher() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status'])
     && request.resource.data.status in ['approved','rejected'])
     || (gameStudent(uid) && gameSubmission(request.resource.data,round)
     && request.time >= resource.data.updatedAt + duration.value(60,'s')
     && request.resource.data.xp > resource.data.xp
     && request.resource.data.quiz >= resource.data.quiz && request.resource.data.memory >= resource.data.memory
-    && request.resource.data.catch >= resource.data.catch && request.resource.data.word >= resource.data.word);
+    && request.resource.data.catch >= resource.data.catch && request.resource.data.word >= resource.data.word
+    && (request.resource.data.quiz == resource.data.quiz || gameEnabled('quiz'))
+    && (request.resource.data.memory == resource.data.memory || gameEnabled('memory'))
+    && (request.resource.data.catch == resource.data.catch || gameEnabled('catch'))
+    && (request.resource.data.word == resource.data.word || gameEnabled('word')));
   }
   match /gameRounds/{round}/board/{uid} {
    allow get: if true;
