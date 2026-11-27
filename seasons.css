@@ -23,7 +23,7 @@
 :root:not([data-season=winter])[data-season] :is(.bt-art [stroke="#528e77"],.village-art #tree [stroke="#487c68"],.wg-scene [stroke="#659784"]){stroke:var(--sd-tree-line)}
 :root:not([data-season=winter])[data-season] :is(.village-art [fill="#f1a9b8"],.village-art [fill="#f5b1bd"],.wg-scene [fill="#dca7c1"],.sv-landscape [fill="#eba4b7"]){fill:var(--sd-roof)}
 :root:not([data-season=winter])[data-season] :is(.village-art [fill="#fff1b8"],.wg-scene [fill="#fff0b3"],.sv-landscape [fill="#fff4b8"]){fill:var(--sd-window)}
-:root:is([data-season=spring],[data-season=summer],[data-season=autumn]) :is(.wg-scene [fill="#fff9f2"],.sv-landscape path[fill="#fffaf6"],.village-art #tree g[fill="#fff"]){fill:var(--sd-snowcap)}
+:root:is([data-season=spring],[data-season=summer],[data-season=autumn]) :is(.wg-scene [fill="#fff9f2"],.sv-landscape path[fill="#fffaf6"]:not(.season-ground),.village-art #tree g[fill="#fff"]){fill:var(--sd-snowcap)}
 :root:not([data-season=winter])[data-season] .village{background:var(--sd-page)}
 :root:not([data-season=winter])[data-season] .village .heading h1{color:var(--sd-heading)}
 :root:not([data-season=winter])[data-season] #svShowcase .sv-scene{background:linear-gradient(var(--sd-sky) 0,var(--sd-ground) 220px)}
@@ -36,3 +36,5 @@
 .cv-motion-off .season-drift,.cv-motion-off .season-twinkle{animation:none!important}
 @media(prefers-reduced-motion:reduce){.season-drift,.season-twinkle{animation:none!important}}
 @media(max-width:390px){#seasonPicker{padding:8px}.season-buttons{gap:4px}.season-buttons button{font-size:10px;min-height:48px}.season-buttons button span:first-child{font-size:17px}}
+
+@media(max-width:390px){.season-buttons{grid-template-columns:repeat(3,minmax(0,1fr))}}
