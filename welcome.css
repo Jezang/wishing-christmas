@@ -67,3 +67,5 @@ body.welcome-active>header,body.welcome-active>main,body.welcome-active>footer,b
 @media(prefers-reduced-motion:reduce){.welcome-copy,.welcome-particles i,.welcome-lit-window,.welcome-tree-lights,.welcome-twinkle,#welcomeEnter>span:last-child{animation:none!important}.welcome-art,.welcome-copy,.welcome-start,.welcome-scrim,.welcome-portal-glow{transition:none!important}}
 .cv-motion-off .welcome-copy,.cv-motion-off .welcome-particles i,.cv-motion-off .welcome-lit-window,.cv-motion-off .welcome-tree-lights,.cv-motion-off .welcome-twinkle,.cv-motion-off #welcomeEnter>span:last-child{animation:none!important}
 .cv-motion-off .welcome-art,.cv-motion-off .welcome-copy,.cv-motion-off .welcome-start,.cv-motion-off .welcome-scrim,.cv-motion-off .welcome-portal-glow{transition:none!important}
+
+.welcome-opening .welcome-copy{animation:none}
