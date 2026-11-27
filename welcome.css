@@ -127,39 +127,29 @@ body.welcome-active>header,body.welcome-active>main,body.welcome-active>footer,b
 }
 #villageWelcome.welcome-opening .welcome-art{transform:scale(1.14)}
 
-/* v7.3.2 — a storybook game button; keep the reserved CTA row and original action. */
+
+/* v7.3.3 — flat kawaii button, with no dimensional shading or gloss. */
 #villageWelcome #welcomeEnter{
-  position:relative;isolation:isolate;display:inline-grid;
-  grid-template-columns:32px minmax(0,1fr) 26px;align-items:center;justify-items:center;
-  gap:12px;min-height:64px;min-width:0;width:min(100%,310px);max-width:100%;
-  padding:9px 15px;
-  border:1.5px solid #b9915e;border-radius:999px;
-  background:linear-gradient(180deg,#fffaf0 0%,#fff3d9 49%,#f9e0d8 100%);
-  color:#86516b;
-  box-shadow:0 4px 0 #b98583,0 6px 0 #fff0d5,0 10px 20px #825a6b30,inset 0 1px 0 #fff;
-  font-size:19px;font-weight:750;line-height:1.1;letter-spacing:.005em;
-  transition:transform .18s ease,box-shadow .18s ease,background .18s ease;
+ display:inline-grid;position:relative;isolation:isolate;grid-template-columns:36px minmax(0,1fr) 22px;
+ align-items:center;justify-items:center;gap:9px;width:min(100%,300px);min-width:0;max-width:100%;
+ min-height:60px;padding:8px 13px;border:2px solid #bd7596;border-radius:19px;
+ background:#f7d6e4;color:#864664;box-shadow:none;
+ font-size:18px;font-weight:750;line-height:1.18;letter-spacing:0;text-shadow:none;
+ transition:background .18s ease,transform .18s ease;
 }
-#villageWelcome #welcomeEnter::before{
-  content:"";position:absolute;inset:4px;border:1px solid #e2bd89;border-radius:inherit;pointer-events:none;z-index:-1
-}
-#villageWelcome #welcomeEnter::after{
-  content:"";position:absolute;inset:6px 14px auto;height:45%;border-radius:999px;
-  background:linear-gradient(180deg,#ffffffa0,#ffffff00);pointer-events:none;z-index:-1
-}
-#villageWelcome #welcomeEnter .start-ornament{display:block;width:32px;height:32px;overflow:visible;transform-origin:center;animation:welcome-start-star 3.6s ease-in-out infinite}
-#villageWelcome #welcomeEnter .start-label{display:block;min-width:0;font-size:inherit;color:#86516b;line-height:1.16;white-space:normal;overflow-wrap:normal}
-#villageWelcome #welcomeEnter .start-name{display:block;font-family:inherit;font-weight:800;text-shadow:0 1px 0 #fffaf4}
-#villageWelcome #welcomeEnter small{display:block;font-size:11px;font-weight:550;line-height:1.35;color:#795c68;margin:3px 0 0;letter-spacing:.02em}
-#villageWelcome #welcomeEnter .start-arrow{display:block;width:26px;height:26px;transition:transform .18s ease}
-#villageWelcome #welcomeEnter:hover:not(:disabled){transform:translateY(-2px);background:linear-gradient(180deg,#fffdf7,#fff0cf 49%,#fbe3e3);box-shadow:0 6px 0 #b98583,0 8px 0 #fff0d5,0 13px 24px #825a6b35}
-#villageWelcome #welcomeEnter:hover:not(:disabled) .start-arrow{transform:translateX(2px)}
-#villageWelcome #welcomeEnter:active:not(:disabled){transform:translateY(3px);box-shadow:0 1px 0 #b98583,0 3px 0 #fff0d5,0 5px 11px #825a6b30}
-#villageWelcome #welcomeEnter:focus-visible{outline:3px solid #527967;outline-offset:5px}
-#villageWelcome #welcomeEnter:disabled{opacity:.78;cursor:wait;transform:none}
-#villageWelcome .welcome-explore{margin-top:12px}
-@keyframes welcome-start-star{0%,100%{transform:rotate(-5deg) scale(1)}50%{transform:rotate(5deg) scale(1.08)}}
-@media(max-width:390px),(max-height:600px){#villageWelcome #welcomeEnter{grid-template-columns:26px minmax(0,1fr) 23px;gap:8px;width:min(100%,280px);min-height:54px;padding:7px 12px;font-size:17px}#villageWelcome #welcomeEnter .start-ornament{width:26px;height:26px}#villageWelcome #welcomeEnter .start-arrow{width:23px;height:23px}#villageWelcome #welcomeEnter small{font-size:10px;margin-top:2px}}
-@media(prefers-reduced-motion:reduce){#villageWelcome #welcomeEnter .start-ornament{animation:none!important}#villageWelcome #welcomeEnter,#villageWelcome #welcomeEnter .start-arrow{transition:none!important}}
+#villageWelcome #welcomeEnter::before,#villageWelcome #welcomeEnter::after{content:none;display:none}
+#villageWelcome #welcomeEnter .start-ornament{display:block;width:36px;height:36px;overflow:visible;transform-origin:center;animation:welcome-start-star 3.6s ease-in-out infinite}
+#villageWelcome #welcomeEnter .start-label{display:block;min-width:0;color:#864664;font-size:inherit;line-height:1.18;white-space:normal;overflow-wrap:normal}
+#villageWelcome #welcomeEnter .start-name{display:block;font-weight:800;text-shadow:none}
+#villageWelcome #welcomeEnter small{display:block;font-size:11px;font-weight:550;color:#80516a;line-height:1.3;margin:3px 0 0;letter-spacing:0}
+#villageWelcome #welcomeEnter .start-arrow{display:block;width:22px;height:22px}
+#villageWelcome #welcomeEnter:hover:not(:disabled){background:#f3c5d9;box-shadow:none;filter:none;transform:none}
+#villageWelcome #welcomeEnter:active:not(:disabled){background:#edb5cd;box-shadow:none;transform:scale(.98)}
+#villageWelcome #welcomeEnter:focus-visible{outline:3px solid #527967;outline-offset:4px}
+#villageWelcome #welcomeEnter:disabled{opacity:.78;cursor:wait;transform:none;box-shadow:none}
+#villageWelcome .welcome-explore{margin-top:8px}
+@keyframes welcome-start-star{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+@media(max-width:390px),(max-height:600px){#villageWelcome #welcomeEnter{grid-template-columns:30px minmax(0,1fr) 18px;gap:7px;width:min(100%,270px);min-height:52px;padding:6px 10px;font-size:16px}#villageWelcome #welcomeEnter .start-ornament{width:30px;height:30px}#villageWelcome #welcomeEnter .start-arrow{width:18px;height:18px}#villageWelcome #welcomeEnter small{font-size:10px;margin-top:2px}}
+@media(prefers-reduced-motion:reduce){#villageWelcome #welcomeEnter .start-ornament{animation:none!important}#villageWelcome #welcomeEnter{transition:none!important;transform:none!important}}
 .cv-motion-off #villageWelcome #welcomeEnter .start-ornament{animation:none!important}
-.cv-motion-off #villageWelcome #welcomeEnter,.cv-motion-off #villageWelcome #welcomeEnter .start-arrow{transition:none!important}
+.cv-motion-off #villageWelcome #welcomeEnter{transition:none!important;transform:none!important}
