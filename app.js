@@ -1,6 +1,6 @@
 import {initPlayground} from './playground.js?v=3';
 import {musicCard,playSong,cover} from './music-covers.js?v=teacheredit1';
-import {drawSnowman,snowmanName} from './snowman.js?v=68';
+import {drawSnowman,snowmanName} from './snowman.js?v=69';
 import {songs,findSong,songLinks,fillSongs,normalizeSongUrl,wishSong,readPlatformLinks,platformLinks,mergeSongs} from './songs.js?v=teacheredit1';
 import {db,auth,ready} from './firebase.js';
 import {collection,query,where,limit,startAfter,getDocs,addDoc,serverTimestamp,orderBy,documentId} from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js';
