@@ -69,3 +69,60 @@ body.welcome-active>header,body.welcome-active>main,body.welcome-active>footer,b
 .cv-motion-off .welcome-art,.cv-motion-off .welcome-copy,.cv-motion-off .welcome-start,.cv-motion-off .welcome-scrim,.cv-motion-off .welcome-portal-glow{transition:none!important}
 
 .welcome-opening .welcome-copy{animation:none}
+
+/* v7.3.1 — safe title screen: no overlap or crop; a short viewport may scroll naturally. */
+#villageWelcome .welcome-hero{
+  width:100%;max-width:none;
+  min-height:0;height:max(100vh,520px);height:max(100svh,520px);
+  display:grid;grid-template-columns:minmax(0,1fr);
+  grid-template-rows:auto auto minmax(0,1fr) auto auto;
+  gap:clamp(4px,1vh,10px);align-items:center;justify-items:center;
+  padding:clamp(10px,2vh,20px) clamp(12px,2.4vw,36px) max(12px,env(safe-area-inset-bottom));
+  background:linear-gradient(180deg,#e3f2ee 0%,#c8dfe5 39%,#e2e9e8 66%,#fff7ec 100%);
+  overflow:visible;
+}
+#villageWelcome .welcome-top{grid-row:1;align-self:start;width:100%;max-width:1320px;margin:0;gap:5px 10px}
+#villageWelcome .welcome-top-actions{max-width:100%;justify-content:center;gap:6px}
+#villageWelcome .welcome-copy{grid-row:2;min-width:0;width:100%;max-width:1100px;align-self:center;text-align:center;padding:0 4px}
+#villageWelcome .welcome-kicker{font-size:clamp(9px,1vw,11px);line-height:1.3;margin:0 0 4px;letter-spacing:.13em}
+#villageWelcome h1{font-size:clamp(27px,min(4.3vw,6.1vh),56px);font-size:clamp(27px,min(4.3vw,6.1svh),56px);line-height:1.05;letter-spacing:-.025em;margin:0 0 5px;text-wrap:balance;overflow-wrap:normal;text-shadow:0 2px 0 #fffaf6}
+#villageWelcome h1 .welcome-overline{font-size:.48em;line-height:1.2;margin-bottom:3px}
+#villageWelcome h1 .welcome-game-title br{display:none}
+#villageWelcome .welcome-tagline{font-size:clamp(11px,1.35vw,15px);line-height:1.4;margin:0;text-shadow:none}
+#villageWelcome .welcome-art-wrap{
+  position:relative;grid-row:3;inset:auto;z-index:0;align-self:stretch;
+  width:100%;height:100%;min-height:0;max-width:1400px;aspect-ratio:auto;
+  margin:0;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;
+  display:grid;place-items:center;overflow:hidden;
+}
+#villageWelcome .welcome-art{display:block;width:100%;height:100%;min-width:0;min-height:0;max-width:100%;max-height:100%;object-fit:contain;border-radius:0}
+#villageWelcome .welcome-scrim{display:none}
+#villageWelcome .welcome-particles{z-index:1;pointer-events:none}
+#villageWelcome .welcome-start{grid-row:4;align-self:center;width:100%;max-width:640px;padding:0 8px;min-width:0}
+#villageWelcome #welcomeEnter{
+  width:auto;max-width:100%;min-width:min(248px,100%);min-height:52px;
+  padding:8px 18px;gap:12px;font-size:clamp(16px,2vw,20px);border-radius:15px;
+  box-shadow:0 4px 0 #315e4f,0 7px 18px #497b683b,inset 0 1px 0 #d1f3dd;
+}
+#villageWelcome #welcomeEnter small{font-size:10px;margin-top:3px}
+#villageWelcome .welcome-explore{margin:8px auto 3px;line-height:1.4;font-size:11px}
+#villageWelcome .welcome-start .welcome-th{font-size:11px;margin:0;line-height:1.4}
+#villageWelcome .welcome-version{grid-row:5;align-self:end;margin:0;font-size:10px;line-height:1.2}
+@media(max-width:760px){
+  #villageWelcome .welcome-hero{height:max(100vh,530px);height:max(100svh,530px);padding-inline:10px;gap:6px}
+  #villageWelcome .welcome-top{justify-content:center}
+  #villageWelcome .welcome-top-actions{width:100%}
+  #villageWelcome .welcome-top a,#villageWelcome .welcome-motion{min-height:44px}
+  #villageWelcome h1{font-size:clamp(27px,7.3vw,42px)}
+  #villageWelcome h1 .welcome-game-title br{display:block}
+  #villageWelcome .welcome-art-wrap{width:100%;max-width:760px}
+}
+@media(max-height:600px){
+  #villageWelcome .welcome-hero{gap:4px}
+  #villageWelcome h1{font-size:clamp(26px,5.8vh,35px)}
+  #villageWelcome .welcome-kicker{font-size:9px}
+  #villageWelcome .welcome-tagline{font-size:11px}
+  #villageWelcome .welcome-start .welcome-th{display:none}
+  #villageWelcome #welcomeEnter{min-height:48px;font-size:16px;padding:7px 14px}
+}
+#villageWelcome.welcome-opening .welcome-art{transform:scale(1.14)}
