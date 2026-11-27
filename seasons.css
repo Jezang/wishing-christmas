@@ -1,0 +1,38 @@
+/* Seasonal Dream Village — local themes, no network or Firebase reads. */
+#seasonPicker{margin:10px auto 0;padding:12px;background:#fffaf6;border:1px solid #e6d8de;border-radius:18px;max-width:620px;text-align:left;box-sizing:border-box;color:#654955}
+#seasonPicker .season-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:3px 10px;margin-bottom:8px}
+#seasonPicker h2{font-size:15px;margin:0;color:#527b6e;font-weight:650}#seasonPicker small{font-size:11px;color:#806579}
+.season-buttons{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px}.season-buttons button{min-width:0;min-height:48px;padding:6px 3px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:1px solid #e3d4dc;border-radius:12px;background:#fff;color:#76546a;font:inherit;font-size:11px;font-weight:600;line-height:1.2;cursor:pointer;overflow-wrap:anywhere;white-space:normal}.season-buttons button span:first-child{font-size:20px;line-height:1}.season-buttons button[aria-pressed=true]{background:#e4f2eb;border-color:#76a995;color:#396e59;box-shadow:inset 0 0 0 1px #76a995}.season-buttons button[data-season-choice=night][aria-pressed=true]{background:#e6e1f5;border-color:#9d8ac0;color:#534579;box-shadow:inset 0 0 0 1px #9d8ac0}.season-buttons button:focus-visible{outline:2px solid #527b6e;outline-offset:2px}#seasonStatus{font-size:12px;margin:7px 0 0;color:#76546a}
+:root{--sd-sky:#dcecf3;--sd-sky2:#fff5f1;--sd-hill:#e7eaf9;--sd-ground:#fffaf6;--sd-tree:#8cc8a5;--sd-tree-hi:#a0d6b8;--sd-tree-low:#78b895;--sd-tree-line:#528e77;--sd-roof:#f1a9b8;--sd-window:#fff1b8;--sd-snowcap:#fff9f2;--sd-page:#f5f9f7;--sd-heading:#a64f68;--sd-hill2:#d1e8e4}
+:root[data-season=spring]{--sd-sky:#f7ddea;--sd-sky2:#fff0df;--sd-hill:#dcebd5;--sd-ground:#e3f0d6;--sd-tree:#92c9a0;--sd-tree-hi:#b7dfaa;--sd-tree-low:#77b58c;--sd-tree-line:#649578;--sd-roof:#eaa5c6;--sd-window:#fff1c9;--sd-snowcap:#f7c8dc;--sd-page:#fff4f7;--sd-heading:#a75d81;--sd-hill2:#cfe6cf}
+:root[data-season=summer]{--sd-sky:#bae4f1;--sd-sky2:#fff3bf;--sd-hill:#cbe5b5;--sd-ground:#e1ebbd;--sd-tree:#79bb8e;--sd-tree-hi:#a7d58e;--sd-tree-low:#68a67e;--sd-tree-line:#528a6d;--sd-roof:#f0bc83;--sd-window:#fff2bb;--sd-snowcap:#c4dfa4;--sd-page:#fff9e8;--sd-heading:#95613e;--sd-hill2:#cce1b5}
+:root[data-season=autumn]{--sd-sky:#f8dbc7;--sd-sky2:#ffebcf;--sd-hill:#e7c1a6;--sd-ground:#f4d9ad;--sd-tree:#dbab77;--sd-tree-hi:#edc997;--sd-tree-low:#c18c65;--sd-tree-line:#a47755;--sd-roof:#c98a91;--sd-window:#fff0ac;--sd-snowcap:#f3cb87;--sd-page:#fff4e8;--sd-heading:#9a5e46;--sd-hill2:#e8c7a0}
+:root[data-season=night]{--sd-sky:#414e79;--sd-sky2:#7d80ac;--sd-hill:#65759b;--sd-ground:#d6e0ef;--sd-tree:#639b93;--sd-tree-hi:#83b6aa;--sd-tree-low:#508881;--sd-tree-line:#376b68;--sd-roof:#b08bb7;--sd-window:#ffe3a0;--sd-snowcap:#e2e9fb;--sd-page:#eeeef8;--sd-heading:#65517e;--sd-hill2:#7186a5}
+.season-extra{display:none}
+:root[data-season=night] .season-night,:root[data-season=spring] .season-spring,:root[data-season=summer] .season-summer,:root[data-season=autumn] .season-autumn{display:inline}
+:root:is([data-season=spring],[data-season=summer],[data-season=autumn]) .season-snow-dots,:root:is([data-season=night],[data-season=summer]) .season-original-sun{display:none}
+/* Winter keeps the original SVG paint untouched. Other scenes repaint selected landscape elements only, never student text or character faces. */
+:root:not([data-season=winter])[data-season] :is(.bt-art,.wg-scene svg,.sv-landscape) .season-sky{fill:var(--sd-sky)}
+:root:not([data-season=winter])[data-season] .village-art #bg stop:first-child{stop-color:var(--sd-sky)}
+:root:not([data-season=winter])[data-season] .village-art #bg stop:last-child{stop-color:var(--sd-sky2)}
+:root:not([data-season=winter])[data-season] :is(.bt-art,.wg-scene svg,.village-art,.sv-landscape) .season-ground{fill:var(--sd-ground)}
+:root:not([data-season=winter])[data-season] :is(.village-art [fill="#e7eaf9"],.wg-scene [fill="#d1e8e4"],.sv-landscape [fill="#d0e6e0"]){fill:var(--sd-hill2)}
+:root:not([data-season=winter])[data-season] :is(.bt-art [fill="#8cc8a5"],.village-art #tree [fill="#82c6a0"],.wg-scene [fill="#8abfa6"],.sv-landscape [fill="#83bda8"]){fill:var(--sd-tree)}
+:root:not([data-season=winter])[data-season] :is(.bt-art [fill="#a0d6b8"],.village-art #tree [fill="#9bd8b3"]){fill:var(--sd-tree-hi)}
+:root:not([data-season=winter])[data-season] .village-art #tree [fill="#78b895"]{fill:var(--sd-tree-low)}
+:root:not([data-season=winter])[data-season] :is(.bt-art [stroke="#528e77"],.village-art #tree [stroke="#487c68"],.wg-scene [stroke="#659784"]){stroke:var(--sd-tree-line)}
+:root:not([data-season=winter])[data-season] :is(.village-art [fill="#f1a9b8"],.village-art [fill="#f5b1bd"],.wg-scene [fill="#dca7c1"],.sv-landscape [fill="#eba4b7"]){fill:var(--sd-roof)}
+:root:not([data-season=winter])[data-season] :is(.village-art [fill="#fff1b8"],.wg-scene [fill="#fff0b3"],.sv-landscape [fill="#fff4b8"]){fill:var(--sd-window)}
+:root:is([data-season=spring],[data-season=summer],[data-season=autumn]) :is(.wg-scene [fill="#fff9f2"],.sv-landscape path[fill="#fffaf6"],.village-art #tree g[fill="#fff"]){fill:var(--sd-snowcap)}
+:root:not([data-season=winter])[data-season] .village{background:var(--sd-page)}
+:root:not([data-season=winter])[data-season] .village .heading h1{color:var(--sd-heading)}
+:root:not([data-season=winter])[data-season] #svShowcase .sv-scene{background:linear-gradient(var(--sd-sky) 0,var(--sd-ground) 220px)}
+:root[data-season=night] :is(.village-art [fill="#fff1b8"],.wg-scene [fill="#fff0b3"],.sv-landscape [fill="#fff4b8"]){filter:drop-shadow(0 0 4px #ffcf79)}
+:root[data-season=night] .bt-art [stroke="#fff0ae"]{stroke:#ffe39b;filter:drop-shadow(0 0 3px #ffe39b)}
+:root[data-season=night] .village-art #tree [stroke="#ffe5a1"]{filter:drop-shadow(0 0 3px #ffe39b)}
+.season-drift{animation:season-drift 6.8s ease-in-out infinite}.season-twinkle{animation:season-twinkle 3.5s ease-in-out infinite}
+@keyframes season-drift{0%,100%{transform:translate(0,0);opacity:.9}50%{transform:translate(6px,12px);opacity:.65}}
+@keyframes season-twinkle{0%,100%{opacity:.55}50%{opacity:1}}
+.cv-motion-off .season-drift,.cv-motion-off .season-twinkle{animation:none!important}
+@media(prefers-reduced-motion:reduce){.season-drift,.season-twinkle{animation:none!important}}
+@media(max-width:390px){#seasonPicker{padding:8px}.season-buttons{gap:4px}.season-buttons button{font-size:10px;min-height:48px}.season-buttons button span:first-child{font-size:17px}}
