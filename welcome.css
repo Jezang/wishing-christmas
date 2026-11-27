@@ -20,3 +20,52 @@ body.welcome-active>header,body.welcome-active>main,body.welcome-active>footer,b
 @media(max-width:760px){#villageWelcome{padding:16px}.welcome-top{margin-bottom:18px}.welcome-top a{padding:8px 10px}.welcome-hero{grid-template-columns:minmax(0,1fr);gap:20px}.welcome-copy{text-align:center}.welcome-kicker{margin-bottom:10px}#villageWelcome h1{font-size:clamp(32px,8vw,52px);margin-bottom:12px}.welcome-th{max-width:440px;margin:0 auto 15px}.welcome-explore{margin:13px auto 10px}.welcome-art-wrap{max-width:560px;width:100%;margin:auto}.welcome-activities{grid-template-columns:repeat(2,minmax(0,1fr))}.welcome-copy small{max-width:400px;margin:auto}}
 @media(prefers-reduced-motion:reduce){.welcome-friend,.welcome-snow{animation:none!important}.welcome-door-left,.welcome-door-right,#welcomeEnter,.welcome-bottom-enter{transition:none!important}}
 .cv-motion-off .welcome-friend,.cv-motion-off .welcome-snow{animation:none!important}.cv-motion-off .welcome-door-left,.cv-motion-off .welcome-door-right{transition:none!important}
+
+/* v7.3: fullscreen game-style title screen. The original scene is no longer a small framed illustration. */
+#villageWelcome{padding:0;background:linear-gradient(180deg,#e3f1ef,#fcf1e7)}
+.welcome-hero{position:relative;isolation:isolate;overflow:hidden;max-width:none;width:100%;min-height:100vh;min-height:100svh;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto minmax(100px,1fr) auto auto;gap:0;align-items:start;justify-items:center;padding:clamp(16px,3vw,38px) clamp(16px,4vw,56px) 16px;background:#c0dce2}
+.welcome-art-wrap{position:absolute;inset:0;z-index:-3;width:100%;max-width:none;height:100%;padding:0;margin:0;border:0;border-radius:0;box-shadow:none;background:#c0dce2;overflow:hidden;pointer-events:none}
+.welcome-art{width:100%;height:100%;border-radius:0;transform-origin:50% 72%;transition:transform .86s cubic-bezier(.22,.75,.24,1)}
+.welcome-scrim{position:absolute;inset:0;z-index:-2;pointer-events:none;background:linear-gradient(180deg,rgba(237,248,244,.94) 0%,rgba(237,248,244,.83) 16%,rgba(239,246,244,.35) 35%,transparent 52%,transparent 68%,rgba(255,250,241,.8) 91%,#fff8ee 100%);transition:background .7s}
+.welcome-top{grid-row:1;width:100%;max-width:1320px;margin:0 auto 16px;align-self:start;position:relative;z-index:3}
+.welcome-brand{font-size:12px;letter-spacing:.03em;color:#426b5d}.welcome-top-actions{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.welcome-top a,.welcome-motion{font:inherit;font-size:11px;font-weight:650;min-height:38px;padding:7px 12px;border-radius:999px;background:#fffaf4e8;border:1px solid #d7e2dc;color:#527064;cursor:pointer;text-decoration:none;box-shadow:none}
+.welcome-copy{grid-row:2;text-align:center;max-width:840px;width:100%;position:relative;z-index:1;padding:0 8px;animation:welcome-title-arrive .8s cubic-bezier(.22,1,.36,1) both}
+.welcome-kicker{margin:0 0 6px;font-size:clamp(10px,1.1vw,12px);color:#6c5268;letter-spacing:.16em}
+#villageWelcome h1{margin:0 0 8px;font-size:clamp(38px,5.9vw,83px);font-weight:850;letter-spacing:-.042em;line-height:.99;color:#92526f;text-shadow:0 3px 0 #fffaf6,0 7px 22px #f8f7f0;overflow-wrap:normal}
+#villageWelcome h1 .welcome-overline{display:block;color:#467665;font-size:.43em;font-weight:750;letter-spacing:.01em;line-height:1.2;margin-bottom:5px}
+#villageWelcome h1 .welcome-game-title{display:block;color:#b1587d}
+#villageWelcome h1 .welcome-game-title br{display:none}
+.welcome-tagline{margin:0;font-size:clamp(13px,1.6vw,18px);color:#69485f;text-shadow:0 1px 6px #fff;font-weight:650}
+.welcome-start{grid-row:4;z-index:2;text-align:center;position:relative;padding:10px 12px 0;max-width:100%;transition:opacity .35s ease,transform .45s ease}
+#welcomeEnter{min-width:min(290px,100%);min-height:66px;border:2px solid #fff7e4;border-radius:18px;padding:11px 20px;background:linear-gradient(180deg,#6aa48d,#437b65);box-shadow:0 5px 0 #315e4f,0 10px 25px #497b6860,inset 0 1px 0 #d1f3dd;color:#fff;gap:18px;font-size:clamp(18px,2vw,23px);font-weight:800;line-height:1.15}
+#welcomeEnter small{display:block;color:#f5f8ef;font-size:11px;font-weight:550;margin-top:5px;letter-spacing:.03em}
+#welcomeEnter>span:first-child{font-size:15px;color:#fff2bd}#welcomeEnter>span:last-child{color:#ffe4a7;font-size:20px;animation:welcome-light 2.8s ease-in-out infinite}
+#welcomeEnter:hover{background:linear-gradient(180deg,#76b39b,#4b8c73);transform:translateY(-2px)}#welcomeEnter:active{transform:translateY(2px);box-shadow:0 2px 0 #315e4f}
+.welcome-explore{margin:15px auto 6px;font-size:12px;color:#68465e}.welcome-start .welcome-th{font-size:12px;line-height:1.5;margin:0 auto;color:#6e5466}.welcome-version{grid-row:5;color:#806a77;font-size:10px;margin-top:10px;text-align:center;z-index:2}
+.welcome-particles{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}.welcome-particles i{position:absolute;left:var(--x);top:-12px;width:var(--sz);height:var(--sz);border-radius:50%;background:#fff;opacity:.85;box-shadow:0 0 6px #fff5df;animation:welcome-fall var(--dur) linear var(--delay) infinite}
+.welcome-lit-window,.welcome-tree-lights{animation:welcome-light 3.7s ease-in-out infinite}.welcome-lit-window:nth-of-type(2n){animation-delay:-1.8s}.welcome-twinkle{animation:welcome-light 3.2s ease-in-out var(--spark-delay,0s) infinite}
+.welcome-portal-glow{opacity:.12;transition:opacity .6s ease}.welcome-opening .welcome-portal-glow{opacity:1}.welcome-opening .welcome-art{transform:scale(1.2)}.welcome-opening .welcome-copy,.welcome-opening .welcome-start{opacity:0;transform:translateY(-12px);transition:opacity .4s ease,transform .5s ease}
+.welcome-opening .welcome-door-left,.welcome-opening .welcome-door-right{transition-duration:.65s;transform:scaleX(.04);opacity:.25}
+.welcome-opening .welcome-scrim{background:linear-gradient(180deg,#fff4d62b,#fff4d65e)}
+@keyframes welcome-title-arrive{from{opacity:0;transform:translateY(-15px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes welcome-fall{0%{transform:translate(0,-12px);opacity:0}8%{opacity:.85}92%{opacity:.85}100%{transform:translate(var(--drift),calc(100svh + 24px));opacity:0}}
+@keyframes welcome-light{0%,100%{opacity:.64}50%{opacity:1}}
+#welcomeActivities{padding:0 16px;margin-top:40px;margin-bottom:0}.welcome-footer{padding:0 12px 25px}
+@media(max-width:760px){
+ .welcome-hero{padding:14px 12px 12px;grid-template-rows:auto auto minmax(220px,1fr) auto auto;min-height:100vh;min-height:100svh;background:linear-gradient(#c6dfe5 0%,#e0e7eb 27%,#fffaf6 78%)}
+ .welcome-top{justify-content:center;margin-bottom:12px;gap:6px 10px}.welcome-brand{display:none}.welcome-top a,.welcome-motion{min-height:44px;font-size:11px;padding:6px 10px}
+ .welcome-copy{padding:0 8px}.welcome-kicker{font-size:10px;margin-bottom:4px}#villageWelcome h1{font-size:clamp(36px,7.8vw,60px);line-height:1.02;margin-bottom:6px}
+ #villageWelcome h1 .welcome-game-title br{display:block}#villageWelcome h1 .welcome-overline{font-size:.46em}
+ .welcome-tagline{font-size:12px;line-height:1.35}
+ .welcome-art-wrap{position:relative;grid-row:3;z-index:0;inset:auto;align-self:center;width:calc(100% + 24px);height:auto;aspect-ratio:760/510;max-width:none;overflow:hidden;background:transparent}
+ .welcome-art{width:100%;height:100%;display:block}.welcome-scrim{display:none}.welcome-particles{z-index:1}
+ .welcome-start{padding:0 4px;align-self:end}.welcome-start .welcome-th{font-size:11px}#welcomeEnter{min-height:60px;font-size:18px;min-width:min(265px,100%)}.welcome-explore{margin:12px auto 5px}
+ .welcome-version{margin-top:7px}
+}
+@media(max-height:650px) and (min-width:761px){.welcome-hero{min-height:650px}.welcome-top{margin-bottom:5px}#villageWelcome h1{font-size:clamp(37px,5vw,60px)}}
+@media(prefers-reduced-motion:reduce){.welcome-copy,.welcome-particles i,.welcome-lit-window,.welcome-tree-lights,.welcome-twinkle,#welcomeEnter>span:last-child{animation:none!important}.welcome-art,.welcome-copy,.welcome-start,.welcome-scrim,.welcome-portal-glow{transition:none!important}}
+.cv-motion-off .welcome-copy,.cv-motion-off .welcome-particles i,.cv-motion-off .welcome-lit-window,.cv-motion-off .welcome-tree-lights,.cv-motion-off .welcome-twinkle,.cv-motion-off #welcomeEnter>span:last-child{animation:none!important}
+.cv-motion-off .welcome-art,.cv-motion-off .welcome-copy,.cv-motion-off .welcome-start,.cv-motion-off .welcome-scrim,.cv-motion-off .welcome-portal-glow{transition:none!important}
+
+.welcome-opening .welcome-copy{animation:none}
